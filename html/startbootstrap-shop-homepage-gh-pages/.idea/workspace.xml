@@ -5,12 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe056de5-b334-434f-a0dc-acf293b920b7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../back_end/src/main/java/com/example/back_end/model/Account.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../back_end/src/main/java/com/example/back_end/model/AccountRole.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../back_end/src/main/java/com/example/back_end/model/Cart.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../back_end/src/main/java/com/example/back_end/model/Customer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../back_end/src/main/java/com/example/back_end/model/Order.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../back_end/src/main/java/com/example/back_end/model/OrderDetail.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../back_end/src/main/java/com/example/back_end/model/Product.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../back_end/src/main/java/com/example/back_end/model/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../back_end/src/main/java/com/example/back_end/model/SecondaryImage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../back_end/src/main/java/com/example/back_end/model/Size.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../back_end/src/main/java/com/example/back_end/model/SizeDetail.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../back_end/src/main/java/com/example/back_end/model/Trademark.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../back_end/src/main/java/com/example/back_end/model/TypeProduct.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/Detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Home.html" beforeDir="false" afterPath="$PROJECT_DIR$/Home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NamND_Cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/NamND_Cart.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NamND_Login.html" beforeDir="false" afterPath="$PROJECT_DIR$/NamND_Login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/scripts.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,22 +49,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/Codegym/module6/case_study/C0723G1-Sprint1-FE",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Codegym/module6/case_study/C0723G1-Sprint1-FE&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -65,7 +78,8 @@
       <workItem from="1706674931396" duration="14136000" />
       <workItem from="1706753992450" duration="1921000" />
       <workItem from="1706757218987" duration="9435000" />
-      <workItem from="1706837246053" duration="5700000" />
+      <workItem from="1706837246053" duration="7302000" />
+      <workItem from="1706855493193" duration="9810000" />
     </task>
     <servers />
   </component>

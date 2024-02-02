@@ -10828,9 +10828,12 @@ textarea.form-control-lg {
 .hotline, .describe{
   color: #e95221;
 }
- i{
+ .icon-home{
   color: #e95221;
 }
+ .fa-check{
+
+ }
 
  .badge,.navbar123 {
 background: #e95221;
@@ -10860,3 +10863,30 @@ background: #e95221;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+/*cart*/
+.card{border:none}
+.product{background-color: #eee}
+label.radio input{position: absolute;top: 0;left: 0;visibility: hidden;pointer-events: none}
+label.radio span{padding: 2px 9px;border: 2px solid  #e95221;display: inline-block;color:  #e95221;border-radius: 3px;text-transform: uppercase}
+label.radio input:checked+span{border-color:  #e95221;background-color:  #e95221;color: #fff}
+
+
+/*detail*/
+
+.list-style9 {
+  list-style: none;
+  padding: 0
+}
+
+.list-style9 li {
+  position: relative;
+  padding: 0 0 10px 0;
+  margin: 0 0 15px 0;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.1)
+}
+
+/*.list-style9 li:last-child {*/
+/*  border-bottom: none;*/
+/*  padding-bottom: 0;*/
+/*  margin-bottom: 0*/
+/*}*/
