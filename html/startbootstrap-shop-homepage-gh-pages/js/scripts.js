@@ -6,6 +6,21 @@
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
 // Thiết lập thời gian chờ giữa các chuyển đổi (vd: 3 giây)
-setInterval(function() {
+setInterval(function () {
     $('#carouselExampleControls').carousel('next');
 }, 2000); // 3000 milliseconds = 3 giây
+
+
+// Chu nhieu thanh ...
+
+// Chon anh detail
+function change_image(image) {
+
+    var container = document.getElementById("main-image");
+
+    container.src = image.src;
+}
+
+document.addEventListener("DOMContentLoaded", function (event) {
+
+});

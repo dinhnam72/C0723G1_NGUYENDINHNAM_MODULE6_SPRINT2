@@ -10825,7 +10825,7 @@ textarea.form-control-lg {
   }
 }
 
-.hotline{
+.hotline, .describe{
   color: #e95221;
 }
  i{
@@ -10853,4 +10853,10 @@ background: #e95221;
 
 .italic-link {
   font-style: italic !important;
+}
+
+.fw-bolder {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
