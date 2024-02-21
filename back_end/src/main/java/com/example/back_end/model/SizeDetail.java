@@ -1,2 +1,4 @@
-package com.example.back_end.model;public class SizeDetail {
+package com.example.back_end.model;
+
+public class SizeDetail {
 }
