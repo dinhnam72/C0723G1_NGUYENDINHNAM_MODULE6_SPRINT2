@@ -10858,7 +10858,7 @@ background: #e95221;
   font-style: italic !important;
 }
 
-.fw-bolder {
+.fw-bolder,.nam123 {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

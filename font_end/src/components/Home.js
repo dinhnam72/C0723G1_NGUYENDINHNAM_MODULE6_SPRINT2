@@ -5,18 +5,23 @@ import logo3 from "./img/1000z-launch-website-banner_1695177885.webp";
 import {useNavigate} from "react-router";
 import React, {useEffect, useState} from "react";
 import * as productService from "../service/product/ProductService";
+import * as customerService from "../service/customer/CustomerService";
+import * as orderService from "../service/order/OrderService";
 import Footer from "./Footer";
 import {NavLink} from "react-router-dom";
 import authToken from "../service/units/UserToken";
 import ModalLogout from "./ModalLogout";
+import {toast} from "react-toastify";
 
 export default function Home() {
     const navigate = useNavigate();
+    let role;
+    let username;
 
-
-    const [nameSearch, setNameSearch] = useState([])
+    const [nameSearch, setNameSearch] = useState([]);
 
     const [product, setProduct] = useState([]);
+    const [customer, setCustomer] = useState([]);
 
 
     const [totalPages, setTotalPages] = useState(0);
@@ -30,35 +35,11 @@ export default function Home() {
     const getAll = async (page) => {
         try {
             let data = await productService.getAllProduct(page);
-            console.log(data);
             setProduct(data.content);
         } catch (e) {
             navigate("/Error");
         }
     }
-
-    // const getAllProductPage = async (page,nameSearch) => {
-    //     try {
-    //         let data = await productService.getAllProductPage(page,nameSearch);
-    //         setTotalPages(data.totalPages)
-    //     } catch (e) {
-    //         navigate("/Error");
-    //     }
-    // }
-    //
-    // const handleNameSearch = (value) =>{
-    //     setNameSearch(value);
-    // }
-    //
-    // const submitSearch = async () =>{
-    //     try {
-    //         let res = await productService.getAllProduct(0,nameSearch);
-    //         setProduct(res.content);
-    //         setTotalPages(Math.ceil(res.totalElements/res.size))
-    //     } catch (e){
-    //         navigate("/Error");
-    //     }
-    // }
 
 
     const VND = new Intl.NumberFormat('vi-VN', {
@@ -66,9 +47,32 @@ export default function Home() {
         currency: 'VND',
     });
 
-    // const handlePageClick = (event) => {
-    //     getAll(event.selected, nameSearch)
-    // }
+    if (authToken()){
+        role = authToken().roles[0].authority;
+        username = authToken().sub;
+    }
+    const getByCustomer = async () => {
+        try {
+            let data = await customerService.getByCustomer(username);
+            setCustomer(data);
+        } catch (e) {
+            navigate("/Error");
+        }
+    }
+    useEffect(() => {
+        getByCustomer();
+    }, []);
+    const addToCart = async (idProduct) => {
+        try {
+            let data = await orderService.addToCart(customer.id,idProduct);
+            if (data.status===200){
+                toast.success("Thêm sản phẩm thành công! ");
+            }
+        } catch (e) {
+            navigate("/Error");
+        }
+
+    }
 
 
     return (
@@ -120,16 +124,17 @@ export default function Home() {
                                             <div className="card-body p-4">
                                                 <div className="text-center">
                                                     <p className="fw-bolder "
-                                                       title="Cặp Vợt Cầu Lông Kumpoo PC-66 (Nội Địa Trung)">{item.name}</p>
+                                                       title={item.name}>{item.name}</p>
                                                     <span
                                                         className="text-danger">{VND.format(item.promotionalPrice)}</span>
                                                 </div>
                                             </div>
                                             <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                                <div className="text-center"><a
-                                                    className="btn btn-outline-danger mt-auto"
-                                                    href="#">Đặt
-                                                    hàng </a></div>
+                                                <div className="text-center">
+                                                    <button onClick={()=>addToCart(item.id)} className="btn btn-outline-danger mt-auto">
+                                                        Đặt hàng
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -138,7 +143,6 @@ export default function Home() {
                                 <h5 style={{color: "red"}}>Không tìm thấy dữ liệu</h5>
                             )}
                     </div>
-
                 </div>
             </section>
             <Footer/>

@@ -11,6 +11,7 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(columnDefinition = "int default 1")
     private Integer amount;
     @ManyToOne
     @JoinColumn(name = "id_customer",referencedColumnName = "id")

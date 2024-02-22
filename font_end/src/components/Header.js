@@ -77,14 +77,12 @@ export default function Header() {
                                     </NavLink>)
                                 }
 
-
-
                             </div>
                             <div className="col-8">
-                                <a href="#" className="cart-icon">
+                                <NavLink to={"/cart"} className="cart-icon">
                                     <i className="bi-cart-fill me-1 fs-2 icon-home"></i>
                                     <span className="cart-quantity badge text-white ms-1 rounded-pill">0</span>
-                                </a>
+                                </NavLink>
                             </div>
 
                         </div>
