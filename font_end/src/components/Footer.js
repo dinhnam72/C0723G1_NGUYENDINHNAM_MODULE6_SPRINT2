@@ -55,22 +55,16 @@ export default function Footer(){
                                 </div>
 
                                 <div className="col-xs-12 col-md-4 col-lg-3 mx-auto mb-4 mt-5">
-                                    <h6 className="text-uppercase fw-bold">Useful links</h6>
+                                    <h6 className="text-uppercase fw-bold">Liên kết</h6>
                                     <hr
                                         className="mb-4 mt-0 d-inline-block mx-auto"
                                         style={{width: "60px", backgroundColor: "#7c4dff", height: "2px"}}
                                     />
                                     <p>
-                                        <a href="#!" className="text-white">Your Account</a>
+                                        <a href="#!" className="text-white">Giá cước vận chuyển</a>
                                     </p>
                                     <p>
-                                        <a href="#!" className="text-white">Become an Affiliate</a>
-                                    </p>
-                                    <p>
-                                        <a href="#!" className="text-white">Shipping Rates</a>
-                                    </p>
-                                    <p>
-                                        <a href="#!" className="text-white">Help</a>
+                                        <a href="#!" className="text-white">Giải đáp</a>
                                     </p>
                                 </div>
                                 <div className="col-xs-12 col-md-6 col-lg-3 mx-auto mb-md-0 mb-4 mt-5">
