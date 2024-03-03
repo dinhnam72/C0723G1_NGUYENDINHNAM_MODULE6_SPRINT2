@@ -2,7 +2,7 @@ import logo from "./img/logo_new.png";
 import Header from "./Header";
 import Footer from "./Footer";
 import {Field, Formik, Form, ErrorMessage} from "formik";
-import {useNavigate} from "react-router";
+import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import {toast} from "react-toastify";
 import * as Yup from "yup";

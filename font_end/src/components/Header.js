@@ -3,16 +3,40 @@ import "./styles.css";
 import {NavLink} from "react-router-dom";
 import authToken from "../service/units/UserToken";
 import ModalLogout from "./ModalLogout";
+import {useEffect, useState} from "react";
+import * as cartService from "../service/order/CartService";
+import {useNavigate} from "react-router-dom";
 
-export default function Header() {
+
+export default function Header({setShowCart,cart}) {
+    const navigate = useNavigate();
+    // const [carts, setCarts] = useState([]);
+
+    // useEffect(() => {
+    //     getAllCart();
+    // }, []);
+    // const getAllCart = async () => {
+    //     try {
+    //         let res = await cartService.listCart(customer.id);
+    //         setCarts(res.data);
+    //     } catch (e) {
+    //         // navigate("/Error");
+    //     }
+    // }
+    const onShowCartHandler=()=>{
+        setShowCart(true);
+    }
+    const offShowCartHandler=()=>{
+        setShowCart(false);
+    }
 
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light ">
                 <div className="container px-4 px-lg-5">
                     <div className="nav col-1 col-md-1">
-                        <a className="navbar-brand" href="#">
-                            <img src={logo} height="70" width="70"/></a>
+                        <NavLink to={"/"} className="navbar-brand" >
+                            <img src={logo} height="70" width="70"/></NavLink>
 
                     </div>
                     <div className="collapse col-10 col-md-10 navbar-collapse" id="navbarSupportedContent">
@@ -20,14 +44,14 @@ export default function Header() {
                             <li className="col-4">
                                 <i className="fa-solid fa-user-astronaut icon-home"></i>
                                 <i className="icon-hotline"></i>
-                                <span>Hotline:</span>
+                                <span className="px-1">Hotline:</span>
                                 <a href="#" title="Hotline: 0399839632 | 0788612959"
                                    className="hotline text-decoration-none ">
                                     0399839632 | 0788612959 </a>
                             </li>
                             <li className="list-top-item header-stores col-4">
                                 <i className="fa-solid fa-map-location-dot icon-home"></i>
-                                <a href="/#" className="text-decoration-none text-black " title="Hệ thống cửa hàng">
+                                <a href="/#" className="text-decoration-none text-black  px-1" title="Hệ thống cửa hàng">
                                     Hệ thống cửa hàng
                                 </a>
                             </li>
@@ -79,10 +103,10 @@ export default function Header() {
 
                             </div>
                             <div className="col-8">
-                                <NavLink to={"/cart"} className="cart-icon">
+                                <div onClick={onShowCartHandler} className="cart-icon">
                                     <i className="bi-cart-fill me-1 fs-2 icon-home"></i>
-                                    <span className="cart-quantity badge text-white ms-1 rounded-pill">0</span>
-                                </NavLink>
+                                    <span className="cart-quantity badge text-white ms-1 rounded-pill">{cart}</span>
+                                </div>
                             </div>
 
                         </div>
@@ -95,9 +119,9 @@ export default function Header() {
                         <div className="container d-flex align-items-center justify-content-center">
                             <ul className=" nav col-12  justify-content-center text-small">
                                 <li>
-                                    <a href="#" className="nav-link text-white">
+                                    <NavLink to={"/"} role="button" onClick={offShowCartHandler} className="nav-link text-white">
                                         TRANG CHỦ
-                                    </a>
+                                    </NavLink>
                                 </li>
                                 <li>
                                     <a href="#" className="nav-link text-white">
