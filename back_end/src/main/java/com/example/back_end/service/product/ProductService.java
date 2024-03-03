@@ -13,8 +13,27 @@ public class ProductService implements IProductService{
     private IProductRepository productRepository;
 
     @Override
-    public Page<Product> findAllProduct(Pageable pageable) {
-        Page<Product> page = productRepository.findAllProduct(pageable);
+    public Page<Product> findAllProduct(Pageable pageable,String name) {
+        Page<Product> page = productRepository.findAllProduct(pageable,"%"+name+"%");
         return page;
+    }
+
+    @Override
+    public Product getProductById(Integer id) {
+        try {
+            Product product = productRepository.getProduct(id);
+            return product;
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    @Override
+    public void updateQuantity(Product product) {
+        try {
+            productRepository.updateQuantity(product);
+        }catch (Exception e){
+            e.getMessage();
+        }
     }
 }

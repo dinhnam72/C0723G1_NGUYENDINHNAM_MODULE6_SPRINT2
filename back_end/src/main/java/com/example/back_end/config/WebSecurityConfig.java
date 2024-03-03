@@ -98,14 +98,19 @@ public class WebSecurityConfig {
         http
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests((requests) -> requests
-                                .requestMatchers("/**").permitAll()
+//                                .requestMatchers("/**").permitAll()
 //                        Trang không cần đăng nhập
                                 .requestMatchers("/api/login").permitAll()
                                 .requestMatchers("/api/products/list").permitAll()
                                 .requestMatchers("/api/customer/register").permitAll()
                                 .requestMatchers("/api/products/details/**").permitAll()
+                                .requestMatchers("/api/customer/**").permitAll()
+                                .requestMatchers("/api/cart/**").permitAll()
+                                .requestMatchers("/api/pay/**").permitAll()
+                                .requestMatchers("/api/order/**").permitAll()
 //                        Trang cần có quyền hợp lệ
-
+//                                .requestMatchers("/api/products/admin").permitAll()
+//                                .requestMatchers("/api/products/admin").hasAnyAuthority("ROLE_ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable)

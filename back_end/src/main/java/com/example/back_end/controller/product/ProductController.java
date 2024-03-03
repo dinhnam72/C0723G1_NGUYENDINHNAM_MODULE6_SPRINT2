@@ -18,12 +18,12 @@ public class ProductController {
     private IProductService productService;
     @GetMapping("/list")
     public ResponseEntity<?> getAllProduct(
-//            @RequestParam(name = "nameProduct", defaultValue = "", required = false) String name,
+            @RequestParam(name = "nameProduct", defaultValue = "", required = false) String name,
 //            @RequestParam(name = "trademark", defaultValue = "", required = false) String trademark,
             @RequestParam(defaultValue = "0", required = false) int page
     ) {
         Pageable pageable = PageRequest.of(page, 12);
-        Page<Product> productPage = productService.findAllProduct(pageable);
+        Page<Product> productPage = productService.findAllProduct(pageable,name);
         if (productPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
