@@ -1,5 +1,6 @@
 package com.example.back_end.controller.order;
 
+import com.example.back_end.dto.order.OrderDTO;
 import com.example.back_end.model.*;
 import com.example.back_end.service.cart.ICartService;
 import com.example.back_end.service.customer.ICustomerService;
@@ -42,30 +43,33 @@ public class OrderController {
         return sb.toString();
     }
 
-    @PostMapping("/create/{id}")
-    public ResponseEntity<?> createOrder(@PathVariable Integer id) {
-        LocalDateTime date = LocalDateTime.now();
-        String code = generateRandomString();
-        boolean flag = orderService.createOrder(date,code,id);
-        if (!flag){
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    @PostMapping("/create")
+    public ResponseEntity<?> createOrder(@RequestBody OrderDTO orderDTO) {
+        List<Cart> cartList = cartService.listCart(orderDTO.getIdCustomer());
+        if (cartList.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }else {
-            Order order = orderService.findByCode(code);
-            List<Cart> cartList = cartService.listCart(id);
-            OrderDetail orderDetail = new OrderDetail();
-            for (Cart c: cartList){
-                orderDetail.setOrder(order);
-                orderDetail.setAmount(c.getAmount());
-                orderDetail.setPrice(c.getProduct().getPromotionalPrice());
-                orderDetail.setProduct(c.getProduct());
-                orderDetailService.createOrderDetail(orderDetail);
-                Product product = productService.getProductById(c.getProduct().getId());
-                int quantity = product.getQuantity()- c.getAmount();
-                product.setQuantity(quantity);
-                productService.updateQuantity(product);
-
+            LocalDateTime date = LocalDateTime.now();
+            String code = generateRandomString();
+            boolean flag = orderService.createOrder(date,code,orderDTO.getIdCustomer());
+            if (!flag){
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }else {
+                Order order = orderService.findByCode(code);
+                OrderDetail orderDetail = new OrderDetail();
+                for (Cart c: cartList){
+                    orderDetail.setOrder(order);
+                    orderDetail.setAmount(c.getAmount());
+                    orderDetail.setPrice(c.getProduct().getPromotionalPrice());
+                    orderDetail.setProduct(c.getProduct());
+                    orderDetailService.createOrderDetail(orderDetail);
+                    Product product = productService.getProductById(c.getProduct().getId());
+                    int quantity = product.getQuantity()- c.getAmount();
+                    product.setQuantity(quantity);
+                    productService.updateQuantity(product);
+                }
+                cartService.deleteAllCart(orderDTO.getIdCustomer());
             }
-        }
 //
 //        if (orderNew != null) {
 //            OrderDetails orderDetail = new OrderDetails();
@@ -84,6 +88,7 @@ public class OrderController {
 //        } else {
 //            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 //        }
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        }
 }

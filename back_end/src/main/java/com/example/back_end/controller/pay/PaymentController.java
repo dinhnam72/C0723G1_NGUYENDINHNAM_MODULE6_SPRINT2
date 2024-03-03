@@ -2,6 +2,9 @@ package com.example.back_end.controller.pay;
 
 
 import com.example.back_end.config.ConfigVNPay;
+import com.example.back_end.model.Cart;
+import com.example.back_end.service.cart.ICartService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +18,15 @@ import java.util.*;
 @RestController
 @CrossOrigin("*")
 public class PaymentController {
+    @Autowired
+    private ICartService cartService;
 
     @GetMapping("")
-    public ResponseEntity<?> getPay(@RequestParam("price") Long price) {
+    public ResponseEntity<?> getPay(@RequestParam("price") Long price, @RequestParam("id") Integer id) {
+        List<Cart> cartList = cartService.listCart(id);
+        if (cartList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         String orderType = "other";
         long amount = Math.round(price * 100);
 
@@ -71,7 +80,7 @@ public class PaymentController {
                     query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII.toString()));
                     query.append('=');
                     query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
-                } catch (Exception e){
+                } catch (Exception e) {
                     System.out.println(e);
                 }
 

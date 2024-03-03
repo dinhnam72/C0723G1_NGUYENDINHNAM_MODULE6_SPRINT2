@@ -2,6 +2,8 @@ import * as cartService from "../service/order/CartService";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
+import * as payService from "../service/order/PayService";
+import {Form, Formik} from "formik";
 
 
 export default function Cart({setShowCart, customer}) {
@@ -62,6 +64,32 @@ export default function Cart({setShowCart, customer}) {
         style: 'currency',
         currency: 'VND',
     });
+
+    const initValues = {
+        totalPrice: totalPrice
+    }
+    const handlerSubmitForPay = async (value) => {
+        let order = JSON.parse(localStorage.getItem('order'));
+        if (order) {
+            localStorage.removeItem('order');
+        }
+        if (cart.length > 0) {
+            order = {idCustomer: customer.id}
+            localStorage.setItem('order', JSON.stringify(order));
+            try {
+                const url = await payService.pay(totalPrice * 1, customer.id);
+                if (url.status===200){
+                    window.location.href = url.data;
+                }
+
+            } catch (e) {
+                navigate("/Error")
+            }
+        } else {
+            navigate("/")
+            toast.warning("Bạn chưa có sản phẩm nào.");
+        }
+    }
 
     return (
         <>
@@ -166,30 +194,35 @@ export default function Cart({setShowCart, customer}) {
                                 </table>
                             </div>
                             <div className="col-sm-12 col-md-3 col-lg-3">
-                                <form>
-                                    <div className="d-flex mb-3">
-                                        <span className="fw-bold">Giao tới</span>
-                                        <button type="button" className="ms-auto btn btn-secondary"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal">
-                                            <i className="fa-solid fa-pen-to-square"></i>
-                                        </button>
+                                <div className="d-flex mb-3">
+                                    <span className="fw-bold">Giao tới</span>
+                                    <button type="button" className="ms-auto btn btn-secondary"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal">
+                                        <i className="fa-solid fa-pen-to-square"></i>
+                                    </button>
 
-                                    </div>
-                                    <div className="fw-bold mb-3">
-                                        <span className="me-2">{customer.name}</span>|| <span
-                                        className="ms-2">{customer.phone}</span>
-                                    </div>
-                                    <div className="mb-5">
-                                        <span>{customer.address}</span>
-                                    </div>
-                                    <div className="mb-3 h5">
-                                        Tổng tiền: <span className="text-danger">
+                                </div>
+                                <div className="fw-bold mb-3">
+                                    <span className="me-2">{customer.name}</span>|| <span
+                                    className="ms-2">{customer.phone}</span>
+                                </div>
+                                <div className="mb-5">
+                                    <span>{customer.address}</span>
+                                </div>
+                                <div className="mb-3 h5">
+                                    Tổng tiền: <span className="text-danger">
                                     {VND.format(totalPrice)}
                             </span>
-                                    </div>
-                                    <button className="btn btn-outline-danger w-100">Thanh Toán</button>
-                                </form>
+                                </div>
+                                <Formik initialValues={initValues}
+                                        onSubmit={values => handlerSubmitForPay(values)}
+                                >
+                                    <Form>
+                                        <button type={"submit"} className="btn btn-outline-danger w-100">Thanh Toán
+                                        </button>
+                                    </Form>
+                                </Formik>
                             </div>
                         </div>
                     )

@@ -9,6 +9,7 @@ public interface ICartService {
     List<Cart> listCart (Integer id);
 
     boolean deleteCart(Integer idCustomer, Integer idProduct);
+    boolean deleteAllCart(Integer idCustomer);
 
     boolean addAmount(Integer idCustomer, Integer idProduct, String calculation);
 }

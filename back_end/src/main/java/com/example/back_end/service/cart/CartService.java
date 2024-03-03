@@ -50,6 +50,16 @@ public class CartService implements ICartService {
     }
 
     @Override
+    public boolean deleteAllCart(Integer idCustomer) {
+        try {
+            cartRepository.deleteAllCart(idCustomer);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    @Override
     public boolean addAmount(Integer idCustomer, Integer idProduct, String calculation) {
         try {
             Cart cart = cartRepository.getCart(idCustomer,idProduct);

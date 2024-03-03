@@ -111,11 +111,16 @@ export default function Home() {
 
     const addToCart = async (idProduct) => {
         try {
-            let data = await orderService.addToCart(customer.id, idProduct);
-            if (data.status === 200) {
-                getAllCart(customer.id);
-                toast.success("Thêm sản phẩm thành công! ");
+            if (authToken()){
+                let data = await orderService.addToCart(customer.id, idProduct);
+                if (data.status === 200) {
+                    getAllCart(customer.id);
+                    toast.success("Thêm sản phẩm thành công! ");
+                }
+            }else {
+                toast.warning("Bạn phải đăng nhập mới mua hàng được")
             }
+
         } catch (e) {
             navigate("/Error");
         }

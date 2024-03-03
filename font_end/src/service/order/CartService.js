@@ -1,6 +1,13 @@
 import axios from "axios";
 
-
+export async function saveOrder(order) {
+    try {
+        let res =await axios.post(`http://localhost:8080/api/order/create`,order);
+        return res;
+    } catch (e){
+        return undefined;
+    }
+}
 
 
 export const addToCart = async (idCustomer,idProduct)=>{

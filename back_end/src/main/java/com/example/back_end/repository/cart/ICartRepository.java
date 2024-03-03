@@ -24,10 +24,16 @@ public interface ICartRepository extends JpaRepository<Cart,Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "update cart \n" +
-            "set is_delete =1\n" +
+    @Query(value = "delete from cart \n" +
             "where id_customer = :idCustomer and id_product = :idProduct",nativeQuery = true)
     void deleteCart(@Param("idCustomer") Integer idCustomer,@Param("idProduct") Integer idProduct);
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from cart \n" +
+            "where id_customer = :idCustomer ",nativeQuery = true)
+    void deleteAllCart(@Param("idCustomer") Integer idCustomer);
+
     @Query(value = "select * from cart where id_customer = :idCustomer and id_product= :idProduct and is_delete=0",nativeQuery = true)
     Cart getCart(@Param("idCustomer") Integer idCustomer,@Param("idProduct") Integer idProduct);
     @Transactional
