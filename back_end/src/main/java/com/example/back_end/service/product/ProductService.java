@@ -1,5 +1,6 @@
 package com.example.back_end.service.product;
 
+import com.example.back_end.dto.product.ProductDTO;
 import com.example.back_end.model.Product;
 import com.example.back_end.repository.product.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,16 @@ public class ProductService implements IProductService{
     public Product getProductById(Integer id) {
         try {
             Product product = productRepository.getProduct(id);
+            return product;
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    @Override
+    public ProductDTO getProduct(Integer id) {
+        try {
+            ProductDTO product = productRepository.getProductDTO(id);
             return product;
         }catch (Exception e){
             return null;

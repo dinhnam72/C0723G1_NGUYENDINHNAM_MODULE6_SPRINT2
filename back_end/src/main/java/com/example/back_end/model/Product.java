@@ -19,6 +19,8 @@ public class Product {
     private String name;
     private String code;
     private String mainImage;
+    private String imageOne;
+    private String imageTwo;
     private Integer quantity;
     private LocalDateTime dateAdded;
     private String color;
@@ -29,6 +31,9 @@ public class Product {
     private String hardness;
     private String handleCircumference;
     private String maximumTensionLevel;
+    @Column(columnDefinition = "LONGTEXT")
+    private String description ;
+
     @Column(columnDefinition = "bit(1) default 0")
     private Boolean isDelete;
 
@@ -38,9 +43,7 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "id_type_product",referencedColumnName = "id")
     private TypeProduct typeProduct;
-    @OneToMany(mappedBy = "product")
-    @JsonBackReference
-    private Set<SecondaryImage> secondaryImages;
+
     @OneToMany(mappedBy = "product")
     @JsonBackReference
     private Set<OrderDetail> orderDetails;
@@ -79,6 +82,22 @@ public class Product {
 
     public void setMainImage(String mainImage) {
         this.mainImage = mainImage;
+    }
+
+    public String getImageOne() {
+        return imageOne;
+    }
+
+    public void setImageOne(String imageOne) {
+        this.imageOne = imageOne;
+    }
+
+    public String getImageTwo() {
+        return imageTwo;
+    }
+
+    public void setImageTwo(String imageTwo) {
+        this.imageTwo = imageTwo;
     }
 
     public Integer getQuantity() {
@@ -185,13 +204,6 @@ public class Product {
         this.typeProduct = typeProduct;
     }
 
-    public Set<SecondaryImage> getSecondaryImages() {
-        return secondaryImages;
-    }
-
-    public void setSecondaryImages(Set<SecondaryImage> secondaryImages) {
-        this.secondaryImages = secondaryImages;
-    }
 
     public Set<OrderDetail> getOrderDetails() {
         return orderDetails;
@@ -207,5 +219,13 @@ public class Product {
 
     public void setCart(Set<Cart> cart) {
         this.cart = cart;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -103,7 +103,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/api/login").permitAll()
                                 .requestMatchers("/api/products/list").permitAll()
                                 .requestMatchers("/api/customer/register").permitAll()
-                                .requestMatchers("/api/products/details/**").permitAll()
+                                .requestMatchers("/api/products/detail/**").permitAll()
                                 .requestMatchers("/api/customer/**").permitAll()
                                 .requestMatchers("/api/cart/**").permitAll()
                                 .requestMatchers("/api/pay/**").permitAll()
