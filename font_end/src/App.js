@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.min.css"
 import {ToastContainer} from "react-toastify";
 import Cart from "./components/Cart";
 import SuccessPay from "./components/SuccessPay";
+import DetailProduct from "./components/DetailProduct";
 
 
 function App() {
@@ -17,6 +18,8 @@ function App() {
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/cart" element={<Cart/>}/>
                 <Route path="/success" element={<SuccessPay/>}/>
+                <Route path="/detail/:id" element={<DetailProduct/>}/>
+                <Route path="/cart" element={<Cart/>}/>
             </Routes>
             <ToastContainer/>
         </BrowserRouter>

@@ -4,28 +4,46 @@ import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import * as payService from "../service/order/PayService";
 import {Form, Formik} from "formik";
+import authToken from "../service/units/UserToken";
+import * as customerService from "../service/customer/CustomerService";
+import Header from "./Header";
+import Footer from "./Footer";
 
 
-export default function Cart({setShowCart, customer}) {
+export default function Cart() {
+    let username;
     const navigate = useNavigate();
     const [cart, setCart] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [customer, setCustomer] = useState();
 
-
-    useEffect(() => {
-        getAllCart();
-    }, []);
-    console.log(customer)
-    const getAllCart = async () => {
+    const getAllCart = async (id) => {
         try {
-            let res = await cartService.listCart(customer.id);
+            let res = await cartService.listCart(id);
             setCart(res.data);
         } catch (e) {
             // toast.warning("Bạn chưa đăng nhập")
-            navigate("/");
+            navigate("/cart");
 
         }
     }
+    if (authToken()) {
+        username = authToken().sub;
+    }
+    const getByCustomer = async () => {
+        try {
+            let res = await customerService.getByCustomer(username);
+            setCustomer(res.data);
+            getAllCart(res.data.id);
+        } catch (e) {
+            navigate("/cart");
+        }
+    }
+
+    useEffect(() => {
+        getByCustomer();
+    }, []);
+
 
     // Tính tổng tiền
     const getTotalPrice = () => {
@@ -47,7 +65,7 @@ export default function Cart({setShowCart, customer}) {
 
         } else {
             let res = await cartService.calculation(customer.id, item.product.id, calculation);
-            getAllCart();
+            getAllCart(customer.id);
         }
     }
     // Xóa sản phẩm
@@ -55,7 +73,7 @@ export default function Cart({setShowCart, customer}) {
         let res = await cartService.deleteCart(customer.id, idProduct);
         if (res.status === 200) {
             toast.success("Xóa sản phẩm thành công");
-            getAllCart();
+            getAllCart(customer.id);
         }
     }
 
@@ -90,9 +108,14 @@ export default function Cart({setShowCart, customer}) {
             toast.warning("Bạn chưa có sản phẩm nào.");
         }
     }
+    if (!customer && username) {
+        return null;
+    }
+
 
     return (
         <>
+            <Header cart={cart.length}/>
             <div className="container-fluid">
                 <h2 className="text-center mt-3 mb-4 ">GIỎ HÀNG CỦA BẠN</h2>
 
@@ -104,7 +127,7 @@ export default function Cart({setShowCart, customer}) {
                                 <table className="table table-hover">
                                     <thead className=" table-primary">
                                     <tr className="text-center">
-                                        <th><input type="checkbox" className="form-check-input"/></th>
+                                        {/*<th><input type="checkbox" className="form-check-input"/></th>*/}
                                         <th></th>
                                         <th>SẢN PHẨM</th>
                                         <th>GIÁ</th>
@@ -116,7 +139,7 @@ export default function Cart({setShowCart, customer}) {
                                     <tbody className="text-center fw-bold align-text-top">
                                     {cart.map(item =>
                                         <tr key={item.id}>
-                                            <td><input type="checkbox" className="form-check-input"/></td>
+                                            {/*<td><input type="checkbox" className="form-check-input"/></td>*/}
                                             <td><img
                                                 src={item.product.mainImage}
                                                 width="100" height="100"/>
@@ -264,6 +287,7 @@ export default function Cart({setShowCart, customer}) {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </>
     )
 }

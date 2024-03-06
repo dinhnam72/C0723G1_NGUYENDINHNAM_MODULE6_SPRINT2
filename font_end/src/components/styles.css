@@ -10887,4 +10887,16 @@ label.radio input:checked+span{border-color:  #e95221;background-color:  #e95221
   margin: 0 0 15px 0;
   border-bottom: 1px dashed rgba(0, 0, 0, 0.1)
 }
+.description{
+  white-space: pre-line;
+}
+/*.images:hover .border-on-hover1 {*/
+/*  border: 2px solid #e95221;*/
+/*}*/
+/*.images {*/
+/*  display: inline-block; !* Đảm bảo phần tử container chỉ chứa ảnh *!*/
+/*}*/
+/*.border-on-hover1 {*/
+/*  transition: border-color 0.3s ease-in-out; !* Hiệu ứng chuyển đổi màu viền *!*/
+/*}*/
 

@@ -26,19 +26,15 @@ export default function Home() {
     const [customer, setCustomer] = useState();
     const [page, setPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
-    const [showCart, setShowCart] = useState(false);
     const [cart, setCart] = useState([]);
-    console.log(cart);
-    // console.log(customer);
+    const [sort, setSort] = useState("")
 
     useEffect(() => {
         getAll();
-    }, [page]);
-
+    }, [page,sort]);
     const getAll = async () => {
         try {
-            let res = await productService.getAllProduct(page, nameSearch);
-
+            let res = await productService.getAllProduct(page, nameSearch,sort);
             if (res.status === 204) {
                 setProduct([]);
                 setTotalPages(0);
@@ -82,7 +78,7 @@ export default function Home() {
 
 
     const changeSortList = async (value) => {
-
+        setSort(value);
     };
 
 
@@ -92,7 +88,6 @@ export default function Home() {
     });
 
     if (authToken()) {
-        // role = authToken().roles[0].authority;
         username = authToken().sub;
     }
     const getByCustomer = async () => {
@@ -118,7 +113,8 @@ export default function Home() {
                     toast.success("Thêm sản phẩm thành công! ");
                 }
             }else {
-                toast.warning("Bạn phải đăng nhập mới mua hàng được")
+                toast.warning("Bạn phải đăng nhập mới mua hàng được");
+                navigate("/login");
             }
 
         } catch (e) {
@@ -131,12 +127,11 @@ export default function Home() {
         return null;
     }
 
-
     return (
         <>
-            <Header setShowCart={setShowCart} cart = {cart.length}/>
-            {!showCart ?
-                (
+            <Header  cart = {cart.length}/>
+            {/*{!showCart ?*/}
+            {/*    (*/}
                     <div className="main">
                         <div className=" ">
                             <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
@@ -200,7 +195,7 @@ export default function Home() {
                                     <div className="col-2">
                                         <select
                                             className="form-select"
-                                            onChange={(value) => changeSortList(value)}
+                                            onChange={(event) => changeSortList(event.target.value)}
                                         >
                                             <option value="">Mặc đinh</option>
                                             <option value="ASC">Giá tăng dần</option>
@@ -217,16 +212,30 @@ export default function Home() {
                                             product.map(item =>
                                                 <div key={item.id} className="col mb-5">
                                                     <div className="card h-100">
-                                                        <img className="card-img-top"
-                                                             src={item.mainImage}
-                                                             width="350" height="300"
-                                                             alt="..."/>
+                                                        {(item.promotionalPrice !== item.startPrice)?
+                                                        <div class="badge bg-danger text-white position-absolute" style={{top: "0.5rem", right: "0.5rem"}}>Sale</div>
+                                                       :<></>
+                                                        }
+                                                        <NavLink to={`/detail/${item.id}`}>
+                                                            <img className="card-img-top"
+                                                                 src={item.mainImage}
+                                                                 width="350" height="300"
+                                                                 alt="..."/>
+                                                        </NavLink>
+
                                                         <div className="card-body p-4">
                                                             <div className="text-center">
                                                                 <p className="fw-bolder "
                                                                    title={item.name}>{item.name}</p>
                                                                 <span
-                                                                    className="text-danger">{VND.format(item.promotionalPrice)}</span>
+                                                                    className="text-danger">{VND.format(item.promotionalPrice)} </span>
+                                                                {(item.promotionalPrice !== item.startPrice)?
+                                                                    < small
+                                                                    className="text-muted text-decoration-line-through"> {VND.format(item.startPrice)}</small>
+                                                                    :
+                                                                    <></>
+                                                                }
+
                                                             </div>
                                                         </div>
                                                         <div
@@ -254,10 +263,10 @@ export default function Home() {
                         </section>
 
                     </div>
-                )
-                :
-                (<Cart setShowCart={setShowCart} customer={customer}/>)
-            }
+                {/*)*/}
+            {/*//     :*/}
+            {/*//     (<Cart setShowCart={setShowCart} customer={customer}/>)*/}
+            {/*// }*/}
             <Footer/>
         </>
     )

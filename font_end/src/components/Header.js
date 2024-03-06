@@ -3,32 +3,18 @@ import "./styles.css";
 import {NavLink} from "react-router-dom";
 import authToken from "../service/units/UserToken";
 import ModalLogout from "./ModalLogout";
-import {useEffect, useState} from "react";
-import * as cartService from "../service/order/CartService";
 import {useNavigate} from "react-router-dom";
 
 
-export default function Header({setShowCart,cart}) {
-    const navigate = useNavigate();
-    // const [carts, setCarts] = useState([]);
+export default function Header({id,cart}) {
 
-    // useEffect(() => {
-    //     getAllCart();
-    // }, []);
-    // const getAllCart = async () => {
-    //     try {
-    //         let res = await cartService.listCart(customer.id);
-    //         setCarts(res.data);
-    //     } catch (e) {
-    //         // navigate("/Error");
-    //     }
+
+    // const onShowCartHandler=()=>{
+    //     setShowCart(true);
     // }
-    const onShowCartHandler=()=>{
-        setShowCart(true);
-    }
-    const offShowCartHandler=()=>{
-        setShowCart(false);
-    }
+    // const offShowCartHandler=()=>{
+    //     setShowCart(false);
+    // }
 
     return (
         <>
@@ -103,8 +89,10 @@ export default function Header({setShowCart,cart}) {
 
                             </div>
                             <div className="col-8">
-                                <div onClick={onShowCartHandler} className="cart-icon">
-                                    <i className="bi-cart-fill me-1 fs-2 icon-home"></i>
+                                <div  className="cart-icon">
+                                    <NavLink to={"/cart"}>
+                                        <i className="bi-cart-fill me-1 fs-2 icon-home"></i>
+                                    </NavLink>
                                     <span className="cart-quantity badge text-white ms-1 rounded-pill">{cart}</span>
                                 </div>
                             </div>
@@ -119,7 +107,7 @@ export default function Header({setShowCart,cart}) {
                         <div className="container d-flex align-items-center justify-content-center">
                             <ul className=" nav col-12  justify-content-center text-small">
                                 <li>
-                                    <NavLink to={"/"} role="button" onClick={offShowCartHandler} className="nav-link text-white">
+                                    <NavLink to={"/"} role="button"  className="nav-link text-white">
                                         TRANG CHỦ
                                     </NavLink>
                                 </li>
