@@ -6,15 +6,7 @@ import ModalLogout from "./ModalLogout";
 import {useNavigate} from "react-router-dom";
 
 
-export default function Header({id,cart}) {
-
-
-    // const onShowCartHandler=()=>{
-    //     setShowCart(true);
-    // }
-    // const offShowCartHandler=()=>{
-    //     setShowCart(false);
-    // }
+export default function Header({cart}) {
 
     return (
         <>

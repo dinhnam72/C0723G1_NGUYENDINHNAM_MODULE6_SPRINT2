@@ -79,6 +79,7 @@ export default function Home() {
 
     const changeSortList = async (value) => {
         setSort(value);
+        setPage(0);
     };
 
 
@@ -130,8 +131,6 @@ export default function Home() {
     return (
         <>
             <Header  cart = {cart.length}/>
-            {/*{!showCart ?*/}
-            {/*    (*/}
                     <div className="main">
                         <div className=" ">
                             <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
